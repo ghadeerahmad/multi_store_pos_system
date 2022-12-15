@@ -1,4 +1,4 @@
-# multi_store_pos_system
+# Post System with support for multiple stores 
 Pos system with multi store support.
 
 # Features
