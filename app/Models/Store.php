@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Permission extends Model
+class Store extends Model
 {
-    use HasFactory;
-    protected $hidden = ['pivot'];
+    use HasFactory, SoftDeletes;
 }

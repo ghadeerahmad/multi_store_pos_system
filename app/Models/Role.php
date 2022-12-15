@@ -14,4 +14,8 @@ class Role extends Model
     {
         return $query->where('guard_name', 'store_admin');
     }
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'role_permissions');
+    }
 }
