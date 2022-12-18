@@ -14,4 +14,14 @@ class StoreRole extends Model
     {
         return $this->belongsToMany(StorePermission::class, 'store_role_permissions');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function store()
+    {
+        return $this->belongsTo(Store::class);
+    }
 }

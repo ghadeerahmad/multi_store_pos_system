@@ -12,7 +12,7 @@ class Role extends Model
 
     public function scopeStoreAdmin($query)
     {
-        return $query->where('guard_name', 'store_admin');
+        return $query->where('guard_name', 'store_owner');
     }
     public function permissions()
     {

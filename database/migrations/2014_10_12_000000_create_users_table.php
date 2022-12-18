@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');
@@ -24,7 +25,6 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('password');
             $table->enum('account_type', ['admin', 'store_owner', 'employee']);
-            $table->foreignId('store_role_id')->nullable()->constrained('store_roles')->nullOnDelete();
             $table->foreignId('role_id')->nullable()->constrained('roles')->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();

@@ -28,7 +28,7 @@ class AuthController extends Controller
         $role = Role::storeAdmin()->first();
         if (!$role) return error_response();
         $data['role_id'] = $role->id;
-        $data['account_type'] = 'store_admin';
+        $data['account_type'] = 'store_owner';
         $reuslt = DB::transaction(function () use ($data, $request) {
             $user = User::create($data);
             if ($request->hasFile('image')) {

@@ -19,7 +19,11 @@ class StoreController extends Controller
      */
     public function index()
     {
-        $store = Store::where('user_id', Auth::user()->id)->firstOrFail();
+        $store = Store::whereHas('store_roles', function ($query) {
+            $query->whereHas('user', function ($query) {
+                $query->where('id', Auth::user()->id);
+            });
+        })->get();
         return success_response($store);
     }
 
@@ -55,7 +59,12 @@ class StoreController extends Controller
      */
     public function show($id)
     {
-        //
+        $store = Store::whereHas('store_roles', function ($query) {
+            $query->whereHas('user', function ($query) {
+                $query->where('id', Auth::user()->id);
+            });
+        })->findOrFail($id);
+        return success_response($store);
     }
 
     /**
@@ -67,7 +76,11 @@ class StoreController extends Controller
      */
     public function update(UpdateStoreRequest $request, $id)
     {
-        $store = Store::where('id', $id)->firstOrFail();
+        $store = Store::whereHas('store_roles', function ($query) {
+            $query->whereHas('user', function ($query) {
+                $query->where('id', Auth::user()->id);
+            });
+        })->findOrFail($id);
         $data = $request->only('name');
         if ($request->hasFile('logo')) {
             if ($store->logo)
@@ -87,7 +100,13 @@ class StoreController extends Controller
      */
     public function destroy($id)
     {
-        Store::where('id', $id)->delete();
+        $store = Store::whereHas('store_roles', function ($query) {
+            $query->whereHas('user', function ($query) {
+                $query->where('id', Auth::user()->id);
+            });
+        })->findOrFail($id);
+
+        $store->delete();
         return success_response();
     }
 }

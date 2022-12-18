@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('store_roles', function (Blueprint $table) {
+        Schema::disableForeignKeyConstraints();
+        Schema::create('user_store_roles', function (Blueprint $table) {
             $table->id();
-            $table->string('name_ar');
-            $table->string('name_en');
-            $table->foreignId('store_id')->constrained('stores')->cascadeOnDelete();
-            $table->string('guard_name');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('store_role_id')->constrained('stores')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('store_roles');
+        Schema::dropIfExists('user_store_roles');
     }
 };
